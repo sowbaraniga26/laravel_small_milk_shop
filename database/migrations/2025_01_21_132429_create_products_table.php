@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // e.g., "Full Cream Milk"
-            $table->string('image_path')->default('no_image_available.jpg');
+            $table->string('image_path')->default('no_image_available.png');
             
             $table->text('description')->nullable();
             $table->timestamps();
