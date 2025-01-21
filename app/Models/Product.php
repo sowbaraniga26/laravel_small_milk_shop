@@ -20,4 +20,12 @@ class Product extends Model
     {
         return env('DOMAIN_URL') . Storage::url($this->image_path);
     }
+
+    /**
+    * Relationship to the ProductVariant model.
+    */
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
 }
