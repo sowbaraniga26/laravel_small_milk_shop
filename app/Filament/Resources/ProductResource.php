@@ -31,6 +31,19 @@ class ProductResource extends Resource
                 ->image(),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
+
+                    Forms\Components\Repeater::make('variants')
+                    ->relationship()
+                    ->schema([                        
+                        Forms\Components\TextInput::make('qty'),
+                        Forms\Components\TextInput::make('unit_price')->required(),
+                    ])
+                    ->reorderable(true)
+                    ->reorderableWithButtons()
+                    // ->collapsible()
+                    ->cloneable()
+                    ->columns(2)
+                    ->columnSpanFull(),
             ]);
     }
 
