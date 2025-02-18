@@ -19,5 +19,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 use App\Http\Controllers\api\v2\ProductController;
+use App\Http\Controllers\api\v2\AuthController;
 
 Route::get('/products', [ProductController::class, 'index']);
+
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user', [AuthController::class, 'getUser']);
+    Route::post('/update-profile', [AuthController::class, 'update_profile']);
+    Route::post('/upload-profile-pic', [AuthController::class, 'upload_profile_pic']);
+});
