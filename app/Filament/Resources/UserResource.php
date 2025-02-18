@@ -13,6 +13,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Illuminate\Support\Facades\Storage;
+
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -45,6 +47,23 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->searchable(),
+
+                Tables\Columns\ImageColumn::make('avatar')
+                    ->getStateUsing(function($record) {
+                        return $record->avatar;
+                    }),
+                    Tables\Columns\ImageColumn::make('image_path')
+                    ->getStateUsing(function($record) { 
+                                
+                        // dump( env('APP_URL') . Storage::url($record->icon_path) );
+                        if($record->image_path != null)
+                        {
+                            return env('APP_URL') . Storage::url($record->image_path);
+                        }
+                    
+                        
+                    }) 
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime()
