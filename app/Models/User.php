@@ -42,12 +42,16 @@ class User extends Authenticatable
     /**
      * Get The attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
+    protected function casts ():array
+    {
+        return[
+
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+}
 
     // Laravel Gravatar profile Image Request
     protected $appends = ['avatar'];
@@ -55,5 +59,12 @@ class User extends Authenticatable
     public function getAvatarAttribute() {
         return "https://gravatar.com/avatar/" . md5( strtolower( trim( $this-> email) ) );
     
+    }
+
+    // Update Profile Pic Path
+    
+    public function setImagePathAttribute($value)
+    {
+        $this->attributes['image_path'] = $value;
     }
 }
