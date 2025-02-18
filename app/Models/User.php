@@ -62,9 +62,26 @@ class User extends Authenticatable
     }
 
     // Update Profile Pic Path
-    
+
     public function setImagePathAttribute($value)
     {
         $this->attributes['image_path'] = $value;
+    }
+
+    /**
+     * Get the full URL path for the icon.
+     *
+     * @param string $record
+     * @return string
+     */
+    public static function getFullPath($record)
+    {
+        // Assuming your images are stored in the public directory
+        
+        // $basePath = config('app.url') . '/storage/';
+        
+        $basePath = env('APP_URL') . '/storage/';
+
+        return $basePath . $record;
     }
 }
